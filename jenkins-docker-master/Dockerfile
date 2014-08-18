@@ -1,7 +1,10 @@
+# docker build -t larrycai/jenkins-docker-master .
+
 FROM ubuntu:14.04
 
 MAINTAINER Larry Cai <larry.caiyu@gmail.com>
-ENV REFRESHED_AT 2014-06-01
+
+ENV REFRESHED_AT 2014-08-18
 
 RUN apt-get update && apt-get install -y curl openjdk-6-jdk
 
@@ -14,18 +17,19 @@ ENV JENKINS_MIRROR http://mirrors.jenkins-ci.org
 RUN mkdir -p $JENKINS_HOME/plugins
 RUN curl -sf -o /opt/jenkins/jenkins.war -L $JENKINS_MIRROR/war-stable/latest/jenkins.war
 
-RUN for plugin in docker-plugin ;\
+# ssh-slaves needs 1.6+, default in LTS is 1.5
+RUN for plugin in docker-plugin ssh-slaves ;\
     do curl -sf -o $JENKINS_HOME/plugins/${plugin}.hpi \
        -L $JENKINS_MIRROR/plugins/${plugin}/latest/${plugin}.hpi ; done
 
-ADD ./dockerjenkins.sh /usr/local/bin/dockerjenkins.sh
-RUN chmod +x /usr/local/bin/dockerjenkins.sh
+# stick with 1.6 version
+RUN touch $JENKINS_HOME/plugins/ssh-slaves.jpi.pinned
 
-ADD config.xml $JENKINS_HOME/
-ADD credentials.xml $JENKINS_HOME/
-RUN mkdir -p $JENKINS_HOME/jobs/docker-demo
-ADD docker-demo.config.xml $JENKINS_HOME/jobs/docker-demo/config.xml
+RUN ln -s $JENKINS_HOME/dockerjenkins.sh /usr/local/bin
+
+WORKDIR /opt/jenkins/data
+ADD JENKINS_HOME $JENKINS_HOME/
 
 EXPOSE 8080
 
-ENTRYPOINT [ "/usr/local/bin/dockerjenkins.sh" ]
+CMD [ "$JENKINS_HOME/dockerjenkins.sh" ]

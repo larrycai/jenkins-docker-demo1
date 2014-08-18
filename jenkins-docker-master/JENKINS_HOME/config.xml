@@ -18,9 +18,9 @@
       <name></name>
       <templates>
         <com.nirima.jenkins.plugins.docker.DockerTemplate>
-          <image>larrycai/jenkins-slave</image>
+          <image>larrycai/jenkins-slave-ubuntu</image>
           <labelString>ubuntu</labelString>
-          <credentialsId>ddd683ca-b6ff-4533-a831-8c7dbc4393ad</credentialsId>
+          <credentialsId>1decc86b-cb89-449b-87c9-980780976f85</credentialsId>
           <dockerCommand></dockerCommand>
           <idleTerminationMinutes>5</idleTerminationMinutes>
           <jvmOptions></jvmOptions>
@@ -30,7 +30,9 @@
           <remoteFs>/home/jenkins</remoteFs>
           <hostname></hostname>
           <instanceCap>2</instanceCap>
-          <dnsHosts/>
+          <dnsHosts>
+            <string>10.0.2.3</string>
+          </dnsHosts>
           <volumes/>
           <volumesFrom></volumesFrom>
           <privileged>false</privileged>
