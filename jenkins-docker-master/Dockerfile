@@ -32,4 +32,4 @@ ADD JENKINS_HOME $JENKINS_HOME/
 
 EXPOSE 8080
 
-CMD [ "$JENKINS_HOME/dockerjenkins.sh" ]
+CMD [ "/opt/jenkins/data/dockerjenkins.sh" ]
