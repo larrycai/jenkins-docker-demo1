@@ -9,6 +9,9 @@ ENV REFRESHED_AT 2014-08-18
 RUN apt-get update && apt-get install -y openssh-server \
     && apt-get install -y --no-install-recommends openjdk-7-jdk \
     && apt-get install -y curl
+
+# install gcc/make design environment
+RUN apt-get update && apt-get install -y unzip make gcc pkg-config libglib2.0-dev xz-utils
     
 RUN mkdir -p /var/run/sshd
 
@@ -28,6 +31,9 @@ ADD id_rsa.pub $HOME/.ssh/authorized_keys
 RUN chown -R jenkins:jenkins $HOME/.ssh
 RUN chmod 0700 $HOME/.ssh
 RUN chmod 0660 $HOME/.ssh/authorized_keys
+
+RUN curl -sf -o /tmp/out2html.zip -L https://github.com/larrycai/out2html/archive/master.zip
+
 
 # Standard SSH port
 EXPOSE 22

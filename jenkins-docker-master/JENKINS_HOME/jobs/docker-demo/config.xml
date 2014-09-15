@@ -22,8 +22,17 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>uname -a
+      <command>
+uname -a
 pwd
+
+# unzip the source code, normally get from git repo https://github.com/larrycai/out2html
+unzip /tmp/out2html.zip
+cd out2html-master
+
+# make package
+make
+make dist
 </command>
     </hudson.tasks.Shell>
   </builders>
