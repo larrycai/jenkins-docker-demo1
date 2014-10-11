@@ -15,7 +15,10 @@ ENV JENKINS_HOME /opt/jenkins/data
 ENV JENKINS_MIRROR http://mirrors.jenkins-ci.org
 
 RUN mkdir -p $JENKINS_HOME/plugins
-RUN curl -sf -o /opt/jenkins/jenkins.war -L $JENKINS_MIRROR/war-stable/latest/jenkins.war
+#RUN curl -sf -o /opt/jenkins/jenkins.war -L $JENKINS_MIRROR/war-stable/latest/jenkins.war
+
+# docker plugin 0.8 release needs 1.580+
+RUN curl -sf -o /opt/jenkins/jenkins.war -L $JENKINS_MIRROR/latest/jenkins.war
 
 # ssh-slaves needs 1.6+, default in LTS is 1.5
 RUN for plugin in docker-plugin ssh-slaves ;\
