@@ -21,7 +21,7 @@ RUN mkdir -p $JENKINS_HOME/plugins
 RUN curl -sf -o /opt/jenkins/jenkins.war -L $JENKINS_MIRROR/war/latest/jenkins.war
 
 # ssh-slaves needs 1.6+, default in LTS is 1.5
-RUN for plugin in docker-plugin ssh-slaves ;\
+RUN for plugin in durable-task docker-plugin ssh-slaves ;\
     do curl -sf -o $JENKINS_HOME/plugins/${plugin}.hpi \
        -L $JENKINS_MIRROR/plugins/${plugin}/latest/${plugin}.hpi ; done
 
