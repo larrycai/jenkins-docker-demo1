@@ -1,5 +1,5 @@
 ## $ docker build -t larrycai/jenkins-slave-ubuntu .
-FROM ubuntu:14.04
+FROM ubuntu:trusty
 
 MAINTAINER Larry Cai <larry.caiyu@gmail.com>
 
