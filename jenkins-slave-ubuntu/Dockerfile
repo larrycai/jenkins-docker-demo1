@@ -34,6 +34,7 @@ RUN chmod 0660 $HOME/.ssh/authorized_keys
 
 RUN curl -sf -o /tmp/out2html.zip -L https://github.com/larrycai/out2html/archive/master.zip
 
+RUN chown -R jenkins:jenkins $HOME
 
 # Standard SSH port
 EXPOSE 22
