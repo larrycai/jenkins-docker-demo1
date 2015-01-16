@@ -3,7 +3,7 @@ FROM ubuntu:trusty
 
 MAINTAINER Larry Cai <larry.caiyu@gmail.com>
 
-ENV REFRESHED_AT 2014-08-18
+ENV REFRESHED_AT 2015-01-16
 
 # Make sure the package repository is up to date.
 RUN apt-get update && apt-get install -y openssh-server \
@@ -12,7 +12,14 @@ RUN apt-get update && apt-get install -y openssh-server \
 
 # install gcc/make design environment
 RUN apt-get update && apt-get install -y unzip make gcc pkg-config libglib2.0-dev xz-utils
-    
+
+ENV MAVEN_VERSION 3.2.5
+
+RUN curl -sSL http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xzf - -C /usr/share \
+  && mv /usr/share/apache-maven-$MAVEN_VERSION /usr/share/maven \
+  && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
+
+ENV MAVEN_HOME /usr/share/maven    
 RUN mkdir -p /var/run/sshd
 
 # Add user jenkins to the image
